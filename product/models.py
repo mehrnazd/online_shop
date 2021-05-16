@@ -11,7 +11,7 @@ User = get_user_model()
 
 class Category(models.Model):
     name = models.CharField(max_length=250)
-    category = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+    cat = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE,related_name='category')
 
     def __str__(self):
         return self.name
@@ -21,8 +21,8 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=250)
     description = models.TextField()
-    category = models.ForeignKey(Category , on_delete=models.CASCADE, related_name='product')
-    supplier = models.ForeignKey(SupplierProfile, on_delete=models.CASCADE)
+    product_cat = models.ForeignKey(Category , on_delete=models.CASCADE, related_name='product')
+    supplier = models.ForeignKey(SupplierProfile, on_delete=models.CASCADE,related_name='product')
     price = models.IntegerField()
     img_one = models.ImageField(upload_to="product/")
     img_two = models.ImageField(upload_to="product/", null=True, blank=True)
@@ -46,7 +46,7 @@ class Comment(models.Model):
     rate = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return self.user.username
+        return self.product
 
 
     
