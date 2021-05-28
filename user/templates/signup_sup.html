@@ -1,0 +1,8 @@
+
+<h1> signuo sup </h1>
+
+<form action="{% url 'signup-sup' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" val="login">
+</form>

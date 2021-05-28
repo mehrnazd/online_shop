@@ -9,10 +9,11 @@ class LoginForm(forms.Form):
 
 
 class CustomerSignupForm(UserCreationForm):
+    phone = forms.CharField(max_length=15)
     class Meta:
         model = User
-        fields = ['user',
-                  'password1', 'password2', 'phone']
+        fields = ['username',
+                  'password1', 'password2']
         
     def save(self):
         user = super().save(commit=False)
@@ -29,10 +30,12 @@ class CustomerSignupForm(UserCreationForm):
 
 
 class SupplierSignupForm(UserCreationForm):
+    phone = forms.CharField(max_length=15)
+
     class Meta:
         model = User
-        fields = ['user',
-                  'password1', 'password2', 'phone']
+        fields = ['username',
+                  'password1', 'password2']
         
     def save(self):
         user = super().save(commit=False)

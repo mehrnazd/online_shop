@@ -16,17 +16,24 @@ from .models import CustomerProfile
 
 User = get_user_model()
 
-class CustomerSignup(View):
+
+class UserTypeSignUp(View):
+    form = None
+    template_name = None
+
+    def get_type_form(self):
+        return self.form
+
     def get(self, request):
-        form = CustomerSignupForm()
+        form = self.get_type_form()()
         context = {
             'form': form
         }
         #html
-        return render(request, 'signup.html', context)
+        return render(request, self.template_name, context)
 
     def post(self, request):
-        form = CustomerSignupForm(request.POST)
+        form = self.get_type_form()(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login')
@@ -35,30 +42,16 @@ class CustomerSignup(View):
             'form': form
         }
         #html
-        return render(request, 'user/signup.html', context)
+        return render(request, self.template_name, context)
+
+class CustomerSignup(UserTypeSignUp):
+    form = CustomerSignupForm
+    template_name = 'signup.html'
 
 
-
-class SupplierSignup(View):
-    def get(self, request):
-        form = SupplierSignupForm()
-        context = {
-            'form': form
-        }
-        #html
-        return render(request, 'signup.html', context)
-
-    def post(self, request):
-        form = SupplierSignupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-
-        context = {
-            'form': form
-        }
-        #html
-        return render(request, 'user/signup.html', context)
+class SupplierSignup(UserTypeSignUp):
+    form = SupplierSignupForm
+    template_name = 'signup_sup.html'
 
 
 class Login(View):
