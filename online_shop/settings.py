@@ -38,9 +38,40 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
     'user',
     'product',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+
 ]
+SITE_ID = 1
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+
+        "APP": {
+            "client_id": "1029342288891-j8nb41ee0ucdb2vi4cen1ce6ah77gh3f.apps.googleusercontent.com",
+            "secret": "baxadmzN-4OmmaoYcGdB8qvS",
+        },
+        "SCOPE": [
+            "profile",
+            "email",
+            "address",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        }
+    }
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
